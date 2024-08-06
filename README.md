@@ -1,46 +1,63 @@
-# PySpark-Dataframe-Guide
-PySpark Dataframe Complete Guide (with COVID-19 Dataset) Spark which is one of the most used tools when it comes to working with Big Data.  While once upon a time Spark used to be heavily reliant on RDD manipulations, Spark has now provided a DataFrame API for us Data Scientists to work with.
+# PySpark DataFrame Guide
 
+## PySpark DataFrame Complete Guide (with COVID-19 Dataset)
 
+Apache Spark is one of the most widely used tools for working with Big Data. While Spark initially relied heavily on RDD manipulations, it now provides a DataFrame API that is more user-friendly for Data Scientists.
 
+### Overview
 
-In this notebook, We will learn standard Spark functionalities needed to work with DataFrames, and finally some tips to handle the inevitable errors you will face.
+In this notebook, we will explore standard Spark functionalities needed to work with DataFrames, and provide tips to handle common errors.
 
-I'm going to skip the Spark Installation part for the sake of the notebook, so please go to Apache Spark Website to install Spark that are right to your work setting.
+Note: The Spark installation process is skipped in this notebook. Please refer to the [Apache Spark Website](https://spark.apache.org/downloads.html) to install Spark according to your work setting.
 
-It looks ok right now, but sometimes as we the number of columns increases, the formatting becomes not too great. I have noticed that the following trick helps in displaying in pandas format in my Jupyter Notebook.
+### Displaying DataFrames
 
-The .toPandas() function converts a Spark Dataframe into a Pandas Dataframe, which is much easier to play with.
+When the number of columns increases, formatting can become an issue. The `.toPandas()` function converts a Spark DataFrame into a Pandas DataFrame, which is much easier to work with in a Jupyter Notebook.
 
-[3] Change Column Names
-We can select a subset of columns using the select
-[4] Sort by Column
-[5] Change Column Type
-[6] Filter
-We can filter a data frame using multiple conditions using AND(&), OR(|) and NOT(~) conditions. For example, we may want to find out all the different infection_case in Daegu with more than 10 confirmed cases.
-[7] GroupBy
-[8] Joins
-Here, We will go with the region file which contains region information such as elementary_school_count, elderly_population_ratio, etc.
+### Table of Contents
+1. [Change Column Names](#change-column-names)
+2. [Select Subset of Columns](#select-subset-of-columns)
+3. [Sort by Column](#sort-by-column)
+4. [Change Column Type](#change-column-type)
+5. [Filter DataFrames](#filter-dataframes)
+6. [GroupBy Operations](#groupby-operations)
+7. [Joins](#joins)
+8. [Using SQL with DataFrames](#using-sql-with-dataframes)
+9. [Create New Columns](#create-new-columns)
 
+### 1. Change Column Names
+You can select a subset of columns using the `select` method.
 
+### 2. Select Subset of Columns
+You can select specific columns from a DataFrame using the `select` method.
 
-2. Use SQL with DataFrames
-We first register the cases dataframe to a temporary table cases_table on which we can run SQL operations. As you can see, the result of the SQL select statement is again a Spark Dataframe.
+### 3. Sort by Column
+Sort the DataFrame by a specific column.
 
-All complex SQL queries like GROUP BY, HAVING, AND ORDER BY clauses can be applied in 'Sql' function
+### 4. Change Column Type
+You can change the data type of a column in a DataFrame.
 
+### 5. Filter DataFrames
+Filter a DataFrame using multiple conditions with `AND` (&), `OR` (|), and `NOT` (~) conditions. For example, finding all different infection cases in Daegu with more than 10 confirmed cases.
 
+### 6. GroupBy Operations
+Group data by specific columns to perform aggregate operations.
 
+### 7. Joins
+Perform joins on DataFrames. Here, we will use a region file containing information such as elementary school count, elderly population ratio, etc.
 
-3. Create New Columns
-There are many ways that you can use to create a column in a PySpark Dataframe.
+### 8. Using SQL with DataFrames
+Register a DataFrame as a temporary table to run SQL operations. The result of the SQL `SELECT` statement is a Spark DataFrame. All complex SQL queries like `GROUP BY`, `HAVING`, and `ORDER BY` clauses can be applied using the `sql` function.
 
-[1] Using Spark Native Functions
-We can use .withcolumn along with PySpark SQL functions to create a new column. In essence, you can find String functions, Date functions, and Math functions already implemented using Spark functions. Our first function, the F.col function gives us access to the column. So if we wanted to add 100 to a column, we could use F.col as:
+### 9. Create New Columns
+There are many ways to create a column in a PySpark DataFrame.
 
+#### 9.1 Using Spark Native Functions
+Use `.withColumn` along with PySpark SQL functions to create a new column. Spark functions include string functions, date functions, and math functions. For example, the `F.col` function gives access to the column. To add 100 to a column, use `F.col`.
 
+#### 9.2 Using Spark UDFs
+For more complex operations on columns, use Spark UDFs. A UDF (User Defined Function) can be thought of as a map operation on a single column or multiple columns. To use Spark UDFs, convert a regular Python function to a Spark UDF using the `F.udf` function and specify the return type (e.g., `StringType`).
 
-[2] Using Spark UDFs
-Sometimes we want to do complicated things to a column or multiple columns. This could be thought of as a map operation on a PySpark Dataframe to a single column or multiple columns. While Spark SQL functions do solve many use cases when it comes to column creation, I use Spark UDF whenever I need more matured Python functionality. \
+---
 
-To use Spark UDFs, we need to use the F.udf function to convert a regular python function to a Spark UDF. We also need to specify the return type of the function. In this example the return type is StringType()
+Feel free to explore the code, contribute, and raise issues if you encounter any. Happy coding!
